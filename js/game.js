@@ -16,9 +16,11 @@ pipeBottom.src = "img/pipeBottom.png";
 // Звуковые файлы
 var fly = new Audio();
 var score_audio = new Audio();
+var death = new Audio();
 
 fly.src = "audio/fly.ogg";
 score_audio.src = "audio/score.mp3";
+death.src = "auido/death.mp3"
 
 var gap = 110;
 
@@ -29,6 +31,8 @@ function moveUp() {
  yPos -= 35;
  fly.play();
 }
+
+
 
 // Создание блоков
 var pipe = [];
@@ -46,7 +50,6 @@ var grav = 1.5;
 
 function draw() {
  ctx.drawImage(bg, 0, 0);
-
  for(var i = 0; i < pipe.length; i++) {
  ctx.drawImage(pipeUp, pipe[i].x, pipe[i].y);
  ctx.drawImage(pipeBottom, pipe[i].x, pipe[i].y + pipeUp.height + gap);
@@ -64,10 +67,13 @@ function draw() {
  if(xPos + bird.width >= pipe[i].x
  && xPos <= pipe[i].x + pipeUp.width
  && (yPos <= pipe[i].y + pipeUp.height
- || yPos + bird.height >= pipe[i].y + pipeUp.height + gap) || yPos + bird.height >= cvs.height - fg.height) {
+ || yPos + bird.height >= pipe[i].y + pipeUp.height + gap)) {
  location.reload(); // Перезагрузка страницы
  }
+if( yPos + bird.height >= cvs.height - fg.height){
+    location.reload();
 
+}
  if(pipe[i].x == 5) {
  score++;
  score_audio.play();
